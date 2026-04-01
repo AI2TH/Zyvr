@@ -10,7 +10,7 @@ set -euo pipefail
 MODE="${1:-debug}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-BUILD_DIR="$PROJECT_ROOT/build"
+BUILD_DIR="$PROJECT_ROOT/dist"
 BUILDER_IMAGE="zyvr-builder"
 DOCKERFILE="$PROJECT_ROOT/docker/Dockerfile.build"
 
@@ -22,6 +22,7 @@ echo "[zyvr] Building APK (mode: $MODE)..."
 if ! docker image inspect "$BUILDER_IMAGE" &>/dev/null; then
     echo "[zyvr] Building Docker builder image..."
     docker build \
+        --platform linux/amd64 \
         -t "$BUILDER_IMAGE" \
         -f "$DOCKERFILE" \
         "$PROJECT_ROOT"
@@ -37,6 +38,7 @@ if [ -z "$JNILIBS_SRC" ]; then
 fi
 
 docker run --rm \
+    --platform linux/amd64 \
     -v "$PROJECT_ROOT:/workspace" \
     -v "$JNILIBS_SRC:$JNILIBS_DST:ro" \
     -w /workspace \
