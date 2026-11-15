@@ -1,3 +1,5 @@
+> **Archived: merged into Linxr.** Zyvr's Asterisk PBX now installs from the [Linxr](https://github.com/AI2TH/Linxr) Marketplace as `zyvr-docker` or `zyvr-native`. This repository is kept for reference.
+
 # Zyvr — Asterisk PBX on Android
 
 Run a full Asterisk telephony server on a non-rooted Android device — no Termux, no root, one APK.
